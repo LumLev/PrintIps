@@ -51,7 +51,7 @@ foreach (NetworkInterface networkInterface in NetworkInterface.GetAllNetworkInte
     if (OperatingSystem.IsMacOS() is false && OperatingSystem.IsIOS() is false)
     {
 #pragma warning disable CA1416 // Validate platform compatibility
-        Console.WriteLine($"Dns Enabled: {properties.IsDnsEnabled}, Dynamic Dns Enabled: {properties.IsDynamicDnsEnabled}");
+      
         Console.WriteLine($"DHCP Server: {(properties.DhcpServerAddresses.Count > 0)}");
         Console.WriteLine("\r\n========================================================");
         var dhcpServerAddresses = properties.DhcpServerAddresses;
