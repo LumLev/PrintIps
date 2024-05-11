@@ -10,40 +10,17 @@ foreach (NetworkInterface networkInterface in NetworkInterface.GetAllNetworkInte
     Console.WriteLine("========================================================");
     Console.WriteLine("========================================================");
     IPInterfaceProperties properties = networkInterface.GetIPProperties();
-    Console.WriteLine($"DNS Suffix: {properties.DnsSuffix}");
-
-    #region IPV4
-        var v4props = properties.GetIPv4Properties();
-        Console.WriteLine($"IPV4 = index: {v4props.Index}; MTU: {v4props.Mtu}, Auto Private Address:");
-        if (OperatingSystem.IsLinux() || OperatingSystem.IsWindows())
-    {
-      
-#pragma warning disable CA1416 // Validate platform compatibility
-        Console.WriteLine($" (enabled:{v4props.IsAutomaticPrivateAddressingEnabled}) (active:{v4props.IsAutomaticPrivateAddressingActive}); \r\n " +
-            $"DHCP: {v4props.IsDhcpEnabled}; Forwarding: {v4props.IsForwardingEnabled}; Auto Private");
-#pragma warning restore CA1416 // Validate platform compatibility
-    }
-    #endregion
-
-    #region IPV6
-    var v6props = properties.GetIPv6Properties();
-    Console.WriteLine($"IPV4 = index: {v4props.Index}; MTU: {v4props.Mtu}, Auto Private Address:");
-    if (OperatingSystem.IsLinux() || OperatingSystem.IsWindows())
-    {
-
-#pragma warning disable CA1416 // Validate platform compatibility
-        Console.WriteLine($" (enabled:{v4props.IsAutomaticPrivateAddressingEnabled}) (active:{v4props.IsAutomaticPrivateAddressingActive}); \r\n " +
-            $"DHCP: {v4props.IsDhcpEnabled}; Forwarding: {v4props.IsForwardingEnabled}; Auto Private");
-#pragma warning restore CA1416 // Validate platform compatibility
-    }
-    #endregion
 
 
     Console.WriteLine("\r\n========================================================");
     Console.WriteLine("Multicast Addresses:");
    foreach(var multicast in properties.MulticastAddresses)
     {
-        Console.WriteLine(multicast.Address.ToString());
+        if (multicast is not null)
+        {
+            Console.WriteLine(multicast.Address.ToString());
+
+        }
     }
 
     Console.WriteLine("========================================================");
